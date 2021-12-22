@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using RedisPOC.redisService;
 using StackExchange.Redis;
 
 namespace RedisPOC
@@ -30,6 +31,7 @@ namespace RedisPOC
             //services.AddControllers();
             IConnectionMultiplexer redis = ConnectionMultiplexer.Connect("localhost:6379");
             services.AddScoped(x => redis.GetDatabase());
+            services.AddScoped<IRedisService, RedisService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
